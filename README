@@ -1,0 +1,33 @@
+***
+intervaltree is part of the Python Package Index, which I found online.
+
+Please install intervaltree before running the program:
+
+pip install intervaltree
+
+or
+
+pip3 install intervaltree
+
+***
+
+a. Some edge cases I considered were multiple rules that had overlapping ports with different ip addresses, which I addressed by iterating through all IntervalTrees for each port (each intervaltree is a ip address interval for that port essentially). Another edge case would be same port but multiple ip addresses as well as same port and same ip address. I tested these edge cases using Python's interactive mode. 
+
+b. The solution I implemented essentially hinges on the use of the interval tree 
+data structure which does most of the heavy lifting. I considered using a more space-expensive 
+implementation that would have used a different data structure (a dictionary filled with lists pointing to other lists). However, intuitively, I thought that would be too inefficient both space and time-complexity wise (takes O(n) to retrieve an element). Using an intervaltree allows for O(1) determining whether a number falls within an interval, which was an attractive plus.
+
+c. I limited space usage to the best of my ability; there might
+be some cases where variables were stored inefficiently/could be stored
+more efficiently.
+d. intervaltree needs to be installed before the program can be run! Thanks. 
+
+
+
+Teams Preferences:
+1) Policy Team: I enjoyed learning about Network Security a lot and think it's one of the most
+interesting topics that I've touched upon. 
+2) Data Team
+3) Platform Team
+
+
