@@ -1,7 +1,8 @@
 import csv
 from intervaltree import *
 
-
+# determines whether the port/ip_address string
+# is an interval or not
 def is_interval(val):
     if "-" in val:
         return True
@@ -10,15 +11,16 @@ def is_interval(val):
 class Firewall:
     # parses CSV file
     def __init__(self, path):
-    
-        # take CSV data and convert
-        # to 4 dictionaries, each corresponding to a possible direction+protocol combo
+        
+        # Each of the 4 combinations corresponds to an interval tree of ports
+        # and each port corresponds to an interval tree of ip_addresses that
+        # are valid
         self.inbound_tcp = IntervalTree()
         self.inbound_udp = IntervalTree()
         self.outbound_tcp = IntervalTree()
         self.outbound_udp = IntervalTree()
 
-
+        # Reads the CSV file
         with open(path, 'r') as f:
             file = csv.reader(f)
             list_of_rules = list(file)
@@ -87,7 +89,8 @@ class Firewall:
                         break
             else:
                 return False
-        elif direction_plus_protocol == "inbound_udp":
+       
+       elif direction_plus_protocol == "inbound_udp":
             port_exists = self.inbound_udp.overlaps(port, port+1)
             if port_exists:
                 for rule in sorted(self.inbound_udp[port:port+1]):
@@ -96,7 +99,6 @@ class Firewall:
                         break
             else:
                 return False
- 
         
         elif direction_plus_protocol == "outbound_tcp":
             port_exists = self.outbound_tcp.overlaps(port, port+1)
@@ -121,9 +123,4 @@ class Firewall:
         return accepted
 
 
-if __name__ == '__main__':
-    import pdb; pdb.set_trace()
-    fw = Firewall("firewall.csv")
-    import pdb; pdb.set_trace()
-    print(fw.accept_packet("inbound", "tcp", 80, "192.168.1.2"))
 
